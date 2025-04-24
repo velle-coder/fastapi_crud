@@ -1,0 +1,11 @@
+# Ignore Python cache and editor config
+__pycache__/
+*.pyc
+.idea/
+.vscode/
+.env
+*.env
+*.log
+
+# Ignore dependency files (optional)
+requirements.txt
