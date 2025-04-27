@@ -50,32 +50,32 @@ def create_user(user: UserCreate):
 def read_users(skip: int = 0, limit: int = 100):
     users = session.query(User).offset(skip).limit(limit).all()
     return users
-#
-# @app.get("/users/{user_id}", response_model=User)
-# def read_user(user_id: int):
-#     user = session.query(User).filter(User.id == user_id).first()
-#     if user is None:
-#         raise HTTPException(status_code=404, detail="User not found")
-#     return user
-#
-# @app.put("/users/{user_id}", response_model=User)
-# def update_user(user_id: int, user: UserBase):
-#     db_user = session.query(User).filter(User.id == user_id).first()
-#     if db_user is None:
-#         raise HTTPException(status_code=404, detail="User not found")
-#     for key, value in user.dict().items():
-#         setattr(db_user, key, value)
-#     session.commit()
-#     session.refresh(db_user)
-#     return db_user
-#
-# @app.delete("/users/{user_id}", response_model=User)
-# def delete_user(user_id: int):
-#     user = session.query(User).filter(User.id == user_id).first()
-#     if user is None:
-#         raise HTTPException(status_code=404, detail="User not found")
-#     session.delete(user)
-#     session.commit()
-#     return user
+
+@app.get("/users/{user_id}", response_model=UserResponse)
+def read_user(user_id: int):
+    user = session.query(User).filter(User.id == user_id).first()
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+@app.put("/users/{user_id}", response_model=UserResponse)
+def update_user(user_id: int, user: UserBase):
+    db_user = session.query(User).filter(User.id == user_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    for key, value in user.dict().items():
+        setattr(db_user, key, value)
+    session.commit()
+    session.refresh(db_user)
+    return db_user
+
+@app.delete("/users/{user_id}", response_model=UserResponse)
+def delete_user(user_id: int):
+    user = session.query(User).filter(User.id == user_id).first()
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    session.delete(user)
+    session.commit()
+    return user
 
 
